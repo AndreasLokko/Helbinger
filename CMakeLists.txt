@@ -11,7 +11,9 @@ else()
 endif ()
 
 message(${CLANG_INCLUDE_DIRS})
-#TODO clean up below
-add_executable(HelbingerExe library.h library.c HCursor.h HCursor.c)
+add_executable(HelbingerExe example.c library.h library.c internal.c internal.h)
 target_link_libraries(HelbingerExe libclang)
-add_library(Helbinger SHARED library.h library.c HCursor.h HCursor.c)
+add_library(Helbinger SHARED library.h library.c internal.c internal.h)
+
+set(compile_options -Wall -Wextra -pedantic -O2) # -fsanitize=address
+target_compile_options(HelbingerExe PUBLIC ${compile_options})
